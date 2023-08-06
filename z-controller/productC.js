@@ -51,14 +51,14 @@ module.exports.deleteProduct = function (req, res) {
 module.exports.updateProductDetails = function (req, res) {
   console.log("update request data-------------------------------------->");
   console.log(`user want to update ${req.params.id} ${req.query.number}`);
-
+  let quantity=parseInt(req.query.number);
   console.log("update request data end-------------------------------------->");
 
   PRODUCTS.findOneAndUpdate(
     { _id: req.params.id },
     {
       $inc: {
-        quantity: parseInt(req.query.number),
+        quantity: quantity,
       },
     }
   )
@@ -70,6 +70,7 @@ module.exports.updateProductDetails = function (req, res) {
       });
     })
     .catch((err) => {
+      console.log(err);
       res.send(err);
     });
 };
